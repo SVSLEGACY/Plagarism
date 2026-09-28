@@ -1,0 +1,7 @@
+{
+  "name": "Veritas AI - Plagiarism Checker & Originality Assistant",
+  "description": "Grammarly-inspired AI plagiarism checker with multi-metric diagnostic similarity analysis, document upload, and citation guidance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

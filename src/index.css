@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Highlighted match styles in text pane */
+.match-highlight-exact {
+  background-color: #fee2e2;
+  border-bottom: 2px solid #ef4444;
+  color: #991b1b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.match-highlight-exact:hover,
+.match-highlight-exact.active-match {
+  background-color: #fecaca;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
+.match-highlight-paraphrase {
+  background-color: #fef3c7;
+  border-bottom: 2px solid #f59e0b;
+  color: #92400e;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.match-highlight-paraphrase:hover,
+.match-highlight-paraphrase.active-match {
+  background-color: #fde68a;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.3);
+}
+
+.match-highlight-quote {
+  background-color: #e0f2fe;
+  border-bottom: 2px solid #0284c7;
+  color: #0369a1;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.match-highlight-quote:hover,
+.match-highlight-quote.active-match {
+  background-color: #bae6fd;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.3);
+}
+
