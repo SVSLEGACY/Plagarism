@@ -24,6 +24,20 @@ export default function App() {
   const handleFileUpload = async (file: File) => {
     setIsUploading(true);
     try {
+      // Direct fast path for plain text and markdown
+      if (file.type === 'text/plain' || file.name.endsWith('.txt') || file.name.endsWith('.md')) {
+        const textContent = await file.text();
+        if (textContent.trim()) {
+          setText(textContent.trim());
+          setUploadedFileName(file.name);
+          setDocumentTitle(file.name.replace(/\.[^/.]+$/, ''));
+          setScanResult(null);
+          setSelectedPassage(null);
+          setIsUploading(false);
+          return;
+        }
+      }
+
       const formData = new FormData();
       formData.append('file', file);
 
@@ -32,21 +46,23 @@ export default function App() {
         body: formData,
       });
 
+      const data = await res.json().catch(() => ({}));
+
       if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || errData.detail || 'Failed to upload document');
+        throw new Error(data.error || data.detail || 'Failed to extract text from document');
       }
 
-      const data = await res.json();
-      if (data.text) {
-        setText(data.text);
+      if (data.text && data.text.trim().length > 0) {
+        setText(data.text.trim());
         setUploadedFileName(file.name);
         setDocumentTitle(file.name.replace(/\.[^/.]+$/, ''));
         setScanResult(null);
         setSelectedPassage(null);
+      } else {
+        alert('No readable text could be found in this document. Please ensure it is not an image-only scan or password-protected.');
       }
     } catch (err: any) {
-      alert(`Upload error: ${err.message || 'Please upload a valid .pdf, .docx, or .txt file.'}`);
+      alert(`Document upload: ${err.message || 'Could not parse document. Please check the file format.'}`);
     } finally {
       setIsUploading(false);
     }

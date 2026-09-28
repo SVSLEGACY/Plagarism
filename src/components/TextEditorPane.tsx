@@ -145,7 +145,11 @@ export const TextEditorPane: React.FC<TextEditorPaneProps> = ({
       <input
         ref={fileInputRef}
         type="file"
-        accept=".pdf,.docx,.txt"
+        accept=".pdf,.docx,.doc,.txt,.rtf,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword,text/plain"
+        onClick={(e) => {
+          // Reset value so re-selecting same file works
+          (e.target as HTMLInputElement).value = '';
+        }}
         onChange={handleFileChange}
         className="hidden"
       />
